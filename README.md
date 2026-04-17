@@ -1,5 +1,7 @@
 # PhishShield Drill Engine
 
+[![Indian Avengers](https://img.shields.io/badge/Managed%20By-Indian%20Avengers-orange?style=flat-square&logo=gitbook)](https://github.com/hansraj316/mission-control-openclaw)
+
 AI-powered phishing simulation and instant coaching MVP for SMB teams.
 
 ## MVP Features
