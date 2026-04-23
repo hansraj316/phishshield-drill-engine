@@ -31,18 +31,6 @@ Optional fail threshold (default: 70):
 FAIL_SCORE_THRESHOLD=75 npm run summary:daily
 ```
 
-Example output:
-
-```json
-{
-  "date": "2026-04-22",
-  "completionCount": 17,
-  "avgScore": 78.24,
-  "failRate": 29.41,
-  "failScoreThreshold": 70
-}
-```
-
 Run tests:
 
 ```bash
@@ -91,7 +79,7 @@ Success response (`201`):
 }
 ```
 
-Curl examples:
+Curl example:
 
 ```bash
 curl -X POST http://localhost:3000/api/events/drill-complete \
@@ -100,17 +88,6 @@ curl -X POST http://localhost:3000/api/events/drill-complete \
     "userId": "user-123",
     "campaignId": "campaign-456",
     "score": 88,
-    "completedAt": "2026-04-22T18:00:00.000Z"
-  }'
-```
-
-```bash
-curl -X POST http://localhost:3000/api/events/drill-complete \
-  -H "Content-Type: application/json" \
-  -d '{
-    "userId": "user-123",
-    "campaignId": "campaign-456",
-    "score": 105,
     "completedAt": "2026-04-22T18:00:00.000Z"
   }'
 ```

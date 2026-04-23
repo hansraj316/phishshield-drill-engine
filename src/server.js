@@ -93,8 +93,9 @@ export function createApp() {
   return app;
 }
 
+export const app = createApp();
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const app = createApp();
   const port = process.env.PORT || 3000;
   app.listen(port, () => console.log(`PhishShield running on :${port}`));
 }
