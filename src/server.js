@@ -32,11 +32,21 @@ export function createApp() {
   app.post('/api/events/drill-complete', (req, res) => {
     const { userId, campaignId, score, completedAt } = req.body || {};
 
-    if (!userId || !campaignId || score === undefined || !completedAt) {
+    if (
+      typeof userId !== 'string' ||
+      !userId.trim() ||
+      typeof campaignId !== 'string' ||
+      !campaignId.trim() ||
+      score === undefined ||
+      completedAt === undefined
+    ) {
       return res.status(400).json({ error: 'userId, campaignId, score, completedAt required' });
     }
-    if (typeof score !== 'number' || Number.isNaN(score) || score < 0 || score > 100) {
+    if (typeof score !== 'number' || !Number.isFinite(score) || score < 0 || score > 100) {
       return res.status(400).json({ error: 'score must be a number between 0 and 100' });
+    }
+    if (typeof completedAt !== 'string') {
+      return res.status(400).json({ error: 'completedAt must be a valid datetime' });
     }
     const completedTs = new Date(completedAt).getTime();
     if (Number.isNaN(completedTs)) {

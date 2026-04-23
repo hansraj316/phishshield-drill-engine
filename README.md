@@ -31,6 +31,18 @@ Optional fail threshold (default: 70):
 FAIL_SCORE_THRESHOLD=75 npm run summary:daily
 ```
 
+Example output:
+
+```json
+{
+  "date": "2026-04-22",
+  "completionCount": 17,
+  "avgScore": 78.24,
+  "failRate": 29.41,
+  "failScoreThreshold": 70
+}
+```
+
 Run tests:
 
 ```bash

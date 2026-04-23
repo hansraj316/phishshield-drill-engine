@@ -49,16 +49,22 @@ test('POST /api/events/drill-complete rejects invalid payloads', async () => {
 
   const invalidPayloads = [
     { campaignId: 'c1', score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
+    { userId: '   ', campaignId: 'c1', score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
+    { userId: 'u1', campaignId: 123, score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: 101, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: -1, completedAt: '2026-04-22T18:00:00.000Z' },
+    { userId: 'u1', campaignId: 'c1', score: Number.POSITIVE_INFINITY, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: 80, completedAt: 'not-a-date' },
+    { userId: 'u1', campaignId: 'c1', score: 80, completedAt: 1713808800000 },
   ];
 
   for (const payload of invalidPayloads) {
-    await request(app)
+    const res = await request(app)
       .post('/api/events/drill-complete')
       .send(payload)
       .expect(400);
+
+    assert.ok(res.body.error);
   }
 
   const dbExists = fs.existsSync(process.env.DB_PATH);
