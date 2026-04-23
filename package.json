@@ -4,10 +4,15 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test": "node --test",
+    "summary:daily": "node src/daily-summary.js"
   },
   "dependencies": {
     "express": "^4.19.2",
     "uuid": "^11.0.3"
+  },
+  "devDependencies": {
+    "supertest": "^7.1.1"
   }
 }
