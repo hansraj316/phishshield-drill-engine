@@ -45,10 +45,11 @@ export function createApp() {
     if (typeof score !== 'number' || !Number.isFinite(score) || score < 0 || score > 100) {
       return res.status(400).json({ error: 'score must be a number between 0 and 100' });
     }
-    if (typeof completedAt !== 'string') {
+    if (typeof completedAt !== 'string' || !completedAt.includes('T')) {
       return res.status(400).json({ error: 'completedAt must be a valid datetime' });
     }
-    const completedTs = new Date(completedAt).getTime();
+
+    const completedTs = Date.parse(completedAt);
     if (Number.isNaN(completedTs)) {
       return res.status(400).json({ error: 'completedAt must be a valid datetime' });
     }
@@ -57,8 +58,8 @@ export function createApp() {
     const event = {
       id: uuid(),
       type: 'drill-complete',
-      userId,
-      campaignId,
+      userId: userId.trim(),
+      campaignId: campaignId.trim(),
       score,
       completedAt: new Date(completedTs).toISOString(),
       createdAt: new Date().toISOString(),

@@ -17,8 +17,8 @@ test('POST /api/events/drill-complete persists valid drill completion event', as
   const app = createApp();
 
   const payload = {
-    userId: 'user-1',
-    campaignId: 'campaign-1',
+    userId: ' user-1 ',
+    campaignId: ' campaign-1 ',
     score: 84,
     completedAt: '2026-04-22T18:00:00.000Z',
   };
@@ -29,8 +29,8 @@ test('POST /api/events/drill-complete persists valid drill completion event', as
     .expect(201);
 
   assert.equal(res.body.type, 'drill-complete');
-  assert.equal(res.body.userId, payload.userId);
-  assert.equal(res.body.campaignId, payload.campaignId);
+  assert.equal(res.body.userId, 'user-1');
+  assert.equal(res.body.campaignId, 'campaign-1');
   assert.equal(res.body.score, payload.score);
   assert.equal(res.body.completedAt, payload.completedAt);
 
@@ -51,9 +51,11 @@ test('POST /api/events/drill-complete rejects invalid payloads', async () => {
     { campaignId: 'c1', score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: '   ', campaignId: 'c1', score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 123, score: 80, completedAt: '2026-04-22T18:00:00.000Z' },
+    { userId: 'u1', campaignId: 'c1', score: '80', completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: 101, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: -1, completedAt: '2026-04-22T18:00:00.000Z' },
     { userId: 'u1', campaignId: 'c1', score: Number.POSITIVE_INFINITY, completedAt: '2026-04-22T18:00:00.000Z' },
+    { userId: 'u1', campaignId: 'c1', score: 80, completedAt: '2026-04-22' },
     { userId: 'u1', campaignId: 'c1', score: 80, completedAt: 'not-a-date' },
     { userId: 'u1', campaignId: 'c1', score: 80, completedAt: 1713808800000 },
   ];

@@ -75,7 +75,7 @@ Validation rules:
 - `userId` required
 - `campaignId` required
 - `score` required, number between `0` and `100`
-- `completedAt` required, valid datetime string
+- `completedAt` required, valid ISO-8601 datetime string (must include time, e.g. `2026-04-22T18:00:00.000Z`)
 
 Success response (`201`):
 
